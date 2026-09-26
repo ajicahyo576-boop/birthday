@@ -1,175 +1,595 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#100718">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <meta name="theme-color" content="#ff7aa8">
+
   <title>For You — A Little Birthday Surprise</title>
- <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
   <div class="phone-shell">
+
     <div class="ambient"></div>
+
     <div class="petals" id="petals"></div>
 
-    <!-- 01: LOCK -->
-    <section class="screen active" id="lockScreen">
-      <div class="lock-content">
-        <div class="eyebrow">A LITTLE SURPRISE FOR</div>
-        <h1 class="script">Someone Special</h1>
-        <p class="muted">Enter the secret code to open your birthday surprise.</p>
 
-        <div class="code-dots" id="codeDots">
-          <span></span><span></span><span></span><span></span>
+    <!-- =====================================================
+         01 : LOCK SCREEN
+    ====================================================== -->
+
+    <section class="screen active" id="lockScreen">
+
+      <div class="lock-content">
+
+        <div class="eyebrow">
+          A LITTLE SURPRISE FOR
         </div>
 
+        <h1 class="script">
+          Someone Special
+        </h1>
+
+        <p class="muted">
+          Enter the secret code to open your birthday surprise.
+        </p>
+
+
+        <div class="code-dots" id="codeDots">
+
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+
+        </div>
+
+
         <div class="keypad">
+
           <button data-key="1">1</button>
           <button data-key="2">2</button>
           <button data-key="3">3</button>
+
           <button data-key="4">4</button>
           <button data-key="5">5</button>
           <button data-key="6">6</button>
+
           <button data-key="7">7</button>
           <button data-key="8">8</button>
           <button data-key="9">9</button>
-          <button class="key-special" data-action="clear">×</button>
-          <button data-key="0">0</button>
-          <button class="key-special" data-action="back">⌫</button>
+
+          <button
+            class="key-special"
+            data-action="clear"
+          >
+            ×
+          </button>
+
+          <button data-key="0">
+            0
+          </button>
+
+          <button
+            class="key-special"
+            data-action="back"
+          >
+            ⌫
+          </button>
+
         </div>
 
-        <p class="hint">Hint: your special date ✦</p>
-        <p class="error" id="codeError"></p>
+
+        <p class="hint">
+          Hint: your special date ✦
+        </p>
+
+        <p
+          class="error"
+          id="codeError"
+        ></p>
+
       </div>
+
     </section>
 
-    <!-- 02: HERO -->
-    <section class="screen" id="heroScreen">
+
+
+    <!-- =====================================================
+         02 : HERO
+    ====================================================== -->
+
+    <section
+      class="screen"
+      id="heroScreen"
+    >
+
       <div class="hero-content">
-        <div class="cake">🎂</div>
-        <div class="eyebrow">TODAY IS YOUR DAY</div>
-        <h2>Happy<br><span>Birthday</span></h2>
-        <p class="name">PUTRI OKTAVIANA RAMADHANI</p>
-        <p class="quote">“May this new chapter bring you more reasons to smile, love and dream.”</p>
-        <button class="primary-btn next" data-next="letterScreen">Open your letter <span>→</span></button>
+
+        <div class="cake">
+          🎂
+        </div>
+
+        <div class="eyebrow">
+          TODAY IS YOUR DAY
+        </div>
+
+        <h2>
+          Happy<br>
+          <span>Birthday</span>
+        </h2>
+
+        <p class="name">
+          PUTRI OKTAVIANA RAMADHANI
+        </p>
+
+        <p class="quote">
+          “May this new chapter bring you more reasons
+          to smile, love and dream.”
+        </p>
+
+        <button
+          class="primary-btn next"
+          data-next="letterScreen"
+        >
+          Open your letter
+          <span>→</span>
+        </button>
+
       </div>
+
     </section>
 
-    <!-- 03: LETTER -->
-    <section class="screen scroll-screen" id="letterScreen">
+
+
+    <!-- =====================================================
+         03 : LETTER
+    ====================================================== -->
+
+    <section
+      class="screen scroll-screen"
+      id="letterScreen"
+    >
+
       <div class="section-top">
-        <span class="section-number">01</span>
-        <span>LETTER FOR YOU</span>
+
+        <span class="section-number">
+          01
+        </span>
+
+        <span>
+          A LITTLE LETTER
+        </span>
+
       </div>
+
+
       <div class="paper">
-        <div class="paper-flower">✿</div>
-        <p class="small-caps">DEAR TATA,</p>
-        <h2 class="script dark">A letter from my heart</h2>
-        <p>
-          Hari ini bukan sekadar tanggal biasa. Hari ini adalah pengingat
-          bahwa seseorang yang begitu berarti telah hadir dan membuat dunia
-          terasa sedikit lebih indah.
+
+        <div class="paper-flower">
+          ✿
+        </div>
+
+        <p class="small-caps">
+          DEAR TATA,
         </p>
+
+        <h2 class="script dark">
+          A little something for you
+        </h2>
+
+
         <p>
-          Semoga di usia yang baru, kamu selalu dikelilingi hal-hal baik,
-          orang-orang yang tulus, dan banyak momen kecil yang membuatmu
-          bahagia.
+          Hari ini adalah hari spesialmu, dan meskipun sekarang
+          kita sudah berjalan di jalan masing-masing, aku tetap
+          ingin menyempatkan diri untuk mengucapkan sesuatu
+          yang sederhana.
         </p>
+
+
         <p>
-          Terima kasih sudah menjadi dirimu sendiri. Jangan berhenti bermimpi,
-          jangan takut memulai sesuatu yang baru, dan tetaplah menjadi versi
-          terbaik dari dirimu.
+          Selamat ulang tahun, Tata. Semoga di usia yang baru ini
+          kamu dipertemukan dengan banyak hal baik, orang-orang
+          yang tulus, dan hari-hari yang membuatmu semakin bahagia.
         </p>
-        <p class="signature script dark">With love,<br>Someone who cares ✦</p>
+
+
+        <p>
+          Kita pernah berbagi banyak cerita, tawa, dan juga beberapa
+          hal yang mungkin tidak semuanya mudah untuk dikenang.
+          Tapi bagaimanapun juga, semua itu pernah menjadi bagian
+          yang berarti dalam hidupku.
+        </p>
+
+
+        <p>
+          Aku tidak membuat halaman kecil ini untuk mengubah apa pun
+          atau mengharapkan sesuatu darimu. Aku hanya ingin memberikan
+          sedikit ucapan untuk seseorang yang pernah menjadi bagian
+          penting dalam perjalanan hidupku.
+        </p>
+
+
+        <p>
+          Semoga semua hal yang sedang kamu perjuangkan sekarang
+          bisa perlahan menemukan jalannya. Semoga kamu selalu punya
+          alasan untuk tersenyum, terus bertumbuh, dan menemukan
+          banyak hal yang membuatmu merasa cukup dan bahagia.
+        </p>
+
+
+        <p class="signature script dark">
+          Take care,<br>
+          Someone who once cared ✦
+        </p>
+
       </div>
-      <button class="circle-next next" data-next="memoryScreen">↓</button>
+
+
+      <button
+        class="circle-next next"
+        data-next="memoryScreen"
+      >
+        ↓
+      </button>
+
     </section>
 
-    <!-- 04: MEMORIES -->
-    <section class="screen scroll-screen" id="memoryScreen">
+
+
+    <!-- =====================================================
+         04 : MEMORIES
+    ====================================================== -->
+
+    <section
+      class="screen scroll-screen"
+      id="memoryScreen"
+    >
+
       <div class="section-top">
-        <span class="section-number">02</span>
-        <span>PHOTO MEMORIES</span>
+
+        <span class="section-number">
+          02
+        </span>
+
+        <span>
+          PHOTO MEMORIES
+        </span>
+
       </div>
+
+
       <div class="memory-intro">
-        <h2>Little moments,<br><span>big memories.</span></h2>
+
+        <h2>
+          Little moments,<br>
+          <span>big memories.</span>
+        </h2>
+
       </div>
+
 
       <div class="gallery">
 
-    <figure class="photo-card tilt-left">
-        <img src="photo1.jpg" alt="Foto kenangan 1">
-        <figcaption>One of my favorite moments.</figcaption>
-    </figure>
 
-    <figure class="photo-card tilt-right">
-        <img src="photo2.jpg" alt="Foto kenangan 2">
-        <figcaption>A memory worth keeping.</figcaption>
-    </figure>
+        <figure class="photo-card tilt-left">
 
-    <figure class="photo-card tilt-left">
-        <img src="photo3.jpg" alt="Foto kenangan 3">
-        <figcaption>And many more to come.</figcaption>
-    </figure>
+          <img
+            class="photo-real"
+            src="photo1.jpg"
+            alt="Foto kenangan 1"
+          >
 
-</div>
+          <figcaption>
+            One of my favorite moments.
+          </figcaption>
 
-      <button class="primary-btn next" data-next="playlistScreen">Continue <span>→</span></button>
+        </figure>
+
+
+
+        <figure class="photo-card tilt-right">
+
+          <img
+            class="photo-real"
+            src="photo2.jpg"
+            alt="Foto kenangan 2"
+          >
+
+          <figcaption>
+            A memory worth keeping.
+          </figcaption>
+
+        </figure>
+
+
+
+        <figure class="photo-card tilt-left">
+
+          <img
+            class="photo-real"
+            src="photo3.jpg"
+            alt="Foto kenangan 3"
+          >
+
+          <figcaption>
+            And many more to come.
+          </figcaption>
+
+        </figure>
+
+
+      </div>
+
+
+      <button
+        class="primary-btn next"
+        data-next="playlistScreen"
+      >
+        Continue
+        <span>→</span>
+      </button>
+
     </section>
 
-    <!-- 05: PLAYLIST -->
-    <section class="screen scroll-screen" id="playlistScreen">
+
+
+    <!-- =====================================================
+         05 : PLAYLIST
+    ====================================================== -->
+
+    <section
+      class="screen scroll-screen"
+      id="playlistScreen"
+    >
+
       <div class="section-top">
-        <span class="section-number">03</span>
-        <span>SPECIAL PLAYLIST</span>
+
+        <span class="section-number">
+          03
+        </span>
+
+        <span>
+          SPECIAL SONG
+        </span>
+
       </div>
+
 
       <div class="vinyl-wrap">
-        <div class="vinyl" id="vinyl"><div class="vinyl-hole"></div></div>
+
+        <div
+          class="vinyl"
+          id="vinyl"
+        >
+
+          <div class="vinyl-hole"></div>
+
+        </div>
+
       </div>
+
 
       <div class="now-playing">
-        <p class="small-caps">NOW PLAYING</p>
-        <h2 id="songTitle">Your Special Song</h2>
-        <p id="songArtist">Add your own song in assets/music/song.mp3</p>
+
+        <p class="small-caps">
+          NOW PLAYING
+        </p>
+
+        <h2 id="songTitle">
+          A Song For You
+        </h2>
+
+        <p id="songArtist">
+          A little song for a special day
+        </p>
+
       </div>
 
-      <div class="progress"><span id="progressBar"></span></div>
+
+      <div class="progress">
+
+        <span id="progressBar"></span>
+
+      </div>
+
 
       <div class="player-controls">
-        <button id="prevBtn">↶</button>
-        <button class="play-btn" id="playBtn">▶</button>
-        <button id="nextBtn">↷</button>
+
+        <button
+          id="prevBtn"
+          type="button"
+          aria-label="Previous"
+        >
+          ↶
+        </button>
+
+
+        <button
+          class="play-btn"
+          id="playBtn"
+          type="button"
+          aria-label="Play"
+        >
+          ▶
+        </button>
+
+
+        <button
+          id="nextBtn"
+          type="button"
+          aria-label="Next"
+        >
+          ↷
+        </button>
+
       </div>
+
 
       <div class="playlist-list">
-        <button class="song active-song" data-title="Your Special Song" data-artist="A song just for you">01 <span>Your Special Song</span></button>
-        <button class="song" data-title="A Beautiful Memory" data-artist="For this beautiful chapter">02 <span>A Beautiful Memory</span></button>
-        <button class="song" data-title="One More Wish" data-artist="Make a wish tonight">03 <span>One More Wish</span></button>
+
+
+        <button
+          class="song active-song"
+          data-title="A Song For You"
+          data-artist="A little song for a special day"
+          type="button"
+        >
+          01
+          <span>
+            A Song For You
+          </span>
+        </button>
+
+
+        <button
+          class="song"
+          data-title="A Beautiful Memory"
+          data-artist="For this beautiful chapter"
+          type="button"
+        >
+          02
+          <span>
+            A Beautiful Memory
+          </span>
+        </button>
+
+
+        <button
+          class="song"
+          data-title="One More Wish"
+          data-artist="Make a wish tonight"
+          type="button"
+        >
+          03
+          <span>
+            One More Wish
+          </span>
+        </button>
+
+
       </div>
 
-      <button class="primary-btn next" data-next="finalScreen">One last thing <span>→</span></button>
+
+      <button
+        class="primary-btn next"
+        data-next="finalScreen"
+      >
+        One last thing
+        <span>→</span>
+      </button>
+
     </section>
 
-    <!-- 06: FINAL -->
-    <section class="screen" id="finalScreen">
+
+
+    <!-- =====================================================
+         06 : FINAL
+    ====================================================== -->
+
+    <section
+      class="screen"
+      id="finalScreen"
+    >
+
       <div class="final-content">
-        <div class="heart">♥</div>
-        <div class="eyebrow">ONE LAST MESSAGE</div>
-        <h2 class="script">Happy Birthday,<br>Tatantrettt.</h2>
+
+        <div class="heart">
+          ♥
+        </div>
+
+        <div class="eyebrow">
+          ONE LAST MESSAGE
+        </div>
+
+
+        <h2 class="script">
+          Happy Birthday,<br>
+          Tata.
+        </h2>
+
+
         <p>
-          May your days be softer, your smiles wider, and your dreams closer
-          than ever before.
+          Aku mungkin bukan lagi orang yang berjalan di sampingmu,
+          tapi aku tetap berharap kamu selalu menemukan banyak
+          alasan untuk bahagia.
         </p>
-        <p class="final-small">Keep this little page as a reminder that you are loved. ✦</p>
-        <button class="ghost-btn" id="restartBtn">Replay the surprise</button>
+
+
+        <p>
+          Terima kasih untuk semua cerita, tawa, dan kenangan
+          yang pernah kita bagi. Tidak semuanya harus kembali
+          seperti dulu untuk tetap bisa dihargai.
+        </p>
+
+
+        <p>
+          Semoga langkahmu ke depan dipenuhi hal-hal baik,
+          orang-orang yang tulus, dan banyak mimpi yang berhasil
+          kamu wujudkan.
+        </p>
+
+
+        <p class="final-small">
+          Tidak ada pesan tersembunyi di balik hadiah kecil ini.
+          Hanya sebuah ucapan tulus:
+          semoga kamu baik-baik saja dan bahagia selalu. ✦
+        </p>
+
+
+        <button
+          class="ghost-btn"
+          id="restartBtn"
+          type="button"
+        >
+          Replay the surprise
+        </button>
+
       </div>
+
     </section>
 
-    <div class="music-note" id="musicNote">♪</div>
+
+
+    <div
+      class="music-note"
+      id="musicNote"
+    >
+      ♪
+    </div>
+
   </div>
 
-  <audio id="audio" preload="metadata"></audio>
+
+
+  <!-- =====================================================
+       AUDIO
+  ====================================================== -->
+
+  <audio
+    id="audio"
+    preload="metadata"
+  >
+    <source
+      src="song.mp3"
+      type="audio/mpeg"
+    >
+  </audio>
+
+
   <script src="script.js"></script>
+
 </body>
+
 </html>
