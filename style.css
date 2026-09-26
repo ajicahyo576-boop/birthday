@@ -1,16 +1,671 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
+
 /* =========================================================
-   PHOTO GALLERY - ORIGINAL PHOTO STYLE
+   GLOBAL
    ========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(255, 105, 170, 0.12), transparent 35%),
+    linear-gradient(135deg, #12040e, #210a19 45%, #10030b);
+  color: #fff;
+  font-family: "DM Sans", sans-serif;
+  overflow-x: hidden;
+}
+
+
+/* =========================================================
+   PHONE SHELL
+   ========================================================= */
+
+.phone-shell {
+  position: relative;
+
+  width: min(100%, 430px);
+  min-height: 100vh;
+
+  margin: 0 auto;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 10%,
+      rgba(255, 120, 180, 0.12),
+      transparent 38%
+    ),
+    linear-gradient(
+      160deg,
+      #160712 0%,
+      #241021 48%,
+      #12040e 100%
+    );
+
+  box-shadow:
+    0 0 80px rgba(255, 70, 150, 0.12);
+
+  isolation: isolate;
+}
+
+
+/* =========================================================
+   AMBIENT GLOW
+   ========================================================= */
+
+.ambient {
+  position: fixed;
+
+  width: 280px;
+  height: 280px;
+
+  top: 5%;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 92, 164, 0.16),
+      transparent 70%
+    );
+
+  filter: blur(15px);
+
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+
+/* =========================================================
+   PETALS
+   ========================================================= */
+
+.petals {
+  position: fixed;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  overflow: hidden;
+
+  z-index: 10;
+}
+
+
+/* =========================================================
+   SCREEN
+   ========================================================= */
+
+.screen {
+  display: none;
+
+  position: relative;
+
+  min-height: 100vh;
+
+  padding: 35px 24px;
+
+  animation: screenFade 0.8s ease;
+}
+
+.screen.active {
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+}
+
+.scroll-screen {
+  justify-content: flex-start;
+
+  padding-top: 38px;
+  padding-bottom: 50px;
+}
+
+@keyframes screenFade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================================
+   TYPOGRAPHY
+   ========================================================= */
+
+.script {
+  font-family: "Cormorant Garamond", serif;
+
+  font-weight: 500;
+
+  font-style: italic;
+
+  letter-spacing: -0.5px;
+}
+
+.script.dark {
+  color: #5d243d;
+}
+
+.eyebrow {
+  margin-bottom: 14px;
+
+  color: #f8a7c9;
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  letter-spacing: 4px;
+
+  text-align: center;
+}
+
+.muted {
+  color: rgba(255, 225, 238, 0.68);
+
+  font-size: 14px;
+
+  line-height: 1.7;
+
+  text-align: center;
+}
+
+.small-caps {
+  color: #9e536f;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 3px;
+}
+
+
+/* =========================================================
+   LOCK SCREEN
+   ========================================================= */
+
+.lock-content {
+  width: 100%;
+
+  padding: 35px 22px;
+
+  border: 1px solid rgba(255, 170, 205, 0.13);
+
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(61, 18, 47, 0.88),
+      rgba(28, 9, 24, 0.95)
+    );
+
+  box-shadow:
+    0 0 60px rgba(255, 75, 150, 0.08),
+    inset 0 1px rgba(255, 255, 255, 0.04);
+
+  backdrop-filter: blur(20px);
+}
+
+.lock-content h1 {
+  margin-bottom: 15px;
+
+  color: #fff;
+
+  font-size: clamp(42px, 12vw, 60px);
+
+  line-height: 0.95;
+
+  text-align: center;
+
+  text-shadow:
+    0 0 25px rgba(255, 130, 190, 0.25);
+}
+
+
+/* =========================================================
+   CODE DOTS
+   ========================================================= */
+
+.code-dots {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 13px;
+
+  margin: 28px 0;
+}
+
+.code-dots span {
+  width: 11px;
+  height: 11px;
+
+  border: 1px solid #e998ba;
+
+  border-radius: 50%;
+
+  transition: all 0.25s ease;
+}
+
+.code-dots span.filled {
+  background: #ff8fba;
+
+  box-shadow:
+    0 0 12px rgba(255, 115, 170, 0.75);
+}
+
+
+/* =========================================================
+   KEYPAD
+   ========================================================= */
+
+.keypad {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 12px;
+
+  max-width: 300px;
+
+  margin: 0 auto;
+}
+
+.keypad button {
+  height: 65px;
+
+  border: 1px solid rgba(255, 170, 205, 0.11);
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.015)
+    );
+
+  color: #fff;
+
+  font-size: 20px;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.keypad button:hover {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 111, 169, 0.2),
+      rgba(255, 255, 255, 0.05)
+    );
+
+  box-shadow:
+    0 0 20px rgba(255, 90, 155, 0.12);
+}
+
+.keypad button:active {
+  transform: scale(0.93);
+}
+
+.keypad .key-special {
+  color: #f2a3c3;
+}
+
+.hint {
+  margin-top: 25px;
+
+  color: rgba(255, 190, 215, 0.6);
+
+  font-size: 12px;
+
+  text-align: center;
+}
+
+.error {
+  min-height: 20px;
+
+  margin-top: 10px;
+
+  color: #ff8cac;
+
+  font-size: 12px;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero-content {
+  text-align: center;
+}
+
+.cake {
+  margin-bottom: 18px;
+
+  font-size: 55px;
+
+  filter:
+    drop-shadow(0 0 15px rgba(255, 125, 180, 0.35));
+
+  animation: cakeFloat 3s ease-in-out infinite;
+}
+
+@keyframes cakeFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.hero-content h2 {
+  margin: 10px 0 18px;
+
+  font-family: "Playfair Display", serif;
+
+  font-size: clamp(48px, 14vw, 70px);
+
+  line-height: 0.92;
+
+  font-weight: 500;
+}
+
+.hero-content h2 span {
+  color: #ff9bc3;
+
+  font-style: italic;
+
+  text-shadow:
+    0 0 25px rgba(255, 105, 165, 0.35);
+}
+
+.name {
+  margin-bottom: 20px;
+
+  color: #ffd1e3;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  letter-spacing: 3px;
+}
+
+.quote {
+  max-width: 330px;
+
+  margin: 0 auto 28px;
+
+  color: rgba(255, 226, 238, 0.72);
+
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: 19px;
+
+  line-height: 1.45;
+
+  font-style: italic;
+}
+
+
+/* =========================================================
+   BUTTON
+   ========================================================= */
+
+.primary-btn {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  min-height: 52px;
+
+  padding: 0 24px;
+
+  border: 1px solid rgba(255, 195, 220, 0.25);
+
+  border-radius: 50px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f47eae,
+      #c94779
+    );
+
+  color: #fff;
+
+  font-family: "DM Sans", sans-serif;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  box-shadow:
+    0 12px 30px rgba(218, 70, 125, 0.25);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.primary-btn:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 15px 35px rgba(255, 87, 150, 0.35);
+}
+
+.primary-btn span {
+  font-size: 18px;
+}
+
+
+/* =========================================================
+   SECTION HEADER
+   ========================================================= */
+
+.section-top {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 25px;
+
+  color: #e5a2bd;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 3px;
+}
+
+.section-number {
+  color: #ff8db9;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   LETTER
+   ========================================================= */
+
+.paper {
+  padding: 30px 25px;
+
+  border-radius: 5px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fff9fb,
+      #ffeef5
+    );
+
+  color: #542638;
+
+  box-shadow:
+    0 25px 55px rgba(0, 0, 0, 0.25);
+}
+
+.paper-flower {
+  margin-bottom: 20px;
+
+  color: #d96891;
+
+  font-size: 26px;
+
+  text-align: center;
+}
+
+.paper h2 {
+  margin: 10px 0 20px;
+
+  font-size: 37px;
+
+  line-height: 1;
+}
+
+.paper p {
+  margin-bottom: 18px;
+
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: 18px;
+
+  line-height: 1.6;
+}
+
+.signature {
+  margin-top: 28px;
+
+  text-align: right;
+
+  font-size: 25px !important;
+}
+
+
+/* =========================================================
+   CIRCLE NEXT
+   ========================================================= */
+
+.circle-next {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 50px;
+  height: 50px;
+
+  margin: 28px auto 0;
+
+  border: 1px solid rgba(255, 155, 190, 0.3);
+
+  border-radius: 50%;
+
+  background: rgba(255, 120, 175, 0.08);
+
+  color: #ffabc9;
+
+  font-size: 20px;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.circle-next:hover {
+  background: rgba(255, 120, 175, 0.18);
+
+  transform: translateY(3px);
+}
+
+
+/* =========================================================
+   MEMORY
+   ========================================================= */
+
+.memory-intro {
+  margin-bottom: 28px;
+}
+
+.memory-intro h2 {
+  font-family: "Playfair Display", serif;
+
+  font-size: 34px;
+
+  line-height: 1.05;
+
+  font-weight: 500;
+}
+
+.memory-intro h2 span {
+  color: #ff9fc4;
+
+  font-style: italic;
+}
 
 .gallery {
   display: flex;
+
   flex-direction: column;
+
   gap: 28px;
+
   margin-bottom: 35px;
 }
 
 
-/* KARTU FOTO */
+/* =========================================================
+   PHOTO CARD
+   ========================================================= */
 
 .photo-card {
   position: relative;
@@ -26,7 +681,7 @@
   color: #542638;
 
   box-shadow:
-    0 15px 35px rgba(0, 0, 0, 0.25);
+    0 15px 35px rgba(0, 0, 0, 0.28);
 
   overflow: hidden;
 
@@ -35,24 +690,22 @@
     box-shadow 0.3s ease;
 }
 
-
-/* Efek foto kiri */
-
 .tilt-left {
   transform: rotate(-2deg);
 }
-
-
-/* Efek foto kanan */
 
 .tilt-right {
   transform: rotate(2deg);
 }
 
 
-/* FOTO ASLI */
+/*
+   PENTING:
+   Foto TIDAK menggunakan aspect-ratio.
+   Jadi ukuran asli foto dipertahankan.
+*/
 
-.photo-real {
+.photo-card img {
   display: block;
 
   width: 100%;
@@ -65,9 +718,6 @@
 
   border-radius: 3px;
 }
-
-
-/* Caption */
 
 .photo-card figcaption {
   padding: 14px 7px 0;
@@ -85,24 +735,371 @@
   color: #542638;
 }
 
-
-/* Efek ketika foto disentuh / mouse diarahkan */
-
 .photo-card:hover {
   transform:
     translateY(-5px)
     rotate(0deg);
 
   box-shadow:
-    0 20px 45px rgba(232, 93, 145, 0.18);
+    0 20px 45px rgba(232, 93, 145, 0.25);
 }
 
 
 /* =========================================================
-   RESPONSIVE PHOTO
+   PLAYLIST
+   ========================================================= */
+
+.vinyl-wrap {
+  display: flex;
+
+  justify-content: center;
+
+  margin: 15px 0 28px;
+}
+
+.vinyl {
+  position: relative;
+
+  width: 190px;
+  height: 190px;
+
+  border-radius: 50%;
+
+  background:
+    repeating-radial-gradient(
+      circle,
+      #1b1017 0,
+      #1b1017 5px,
+      #2b1721 6px,
+      #171017 10px
+    );
+
+  box-shadow:
+    0 0 35px rgba(255, 95, 160, 0.15);
+
+  animation: vinylSpin 8s linear infinite;
+  animation-play-state: paused;
+}
+
+.vinyl.playing {
+  animation-play-state: running;
+}
+
+@keyframes vinylSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.vinyl-hole {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 35px;
+  height: 35px;
+
+  transform: translate(-50%, -50%);
+
+  border: 7px solid #e76f9e;
+
+  border-radius: 50%;
+
+  background: #321424;
+}
+
+.now-playing {
+  text-align: center;
+}
+
+.now-playing h2 {
+  margin: 7px 0;
+
+  font-family: "Playfair Display", serif;
+
+  font-size: 26px;
+
+  font-weight: 500;
+}
+
+.now-playing p:last-child {
+  color: rgba(255, 220, 235, 0.6);
+
+  font-size: 12px;
+}
+
+.progress {
+  width: 100%;
+  height: 4px;
+
+  margin: 25px 0;
+
+  overflow: hidden;
+
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.progress span {
+  display: block;
+
+  width: 0%;
+
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #d94e82,
+      #ffabc9
+    );
+}
+
+.player-controls {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 25px;
+
+  margin-bottom: 28px;
+}
+
+.player-controls button {
+  border: 0;
+
+  background: transparent;
+
+  color: #ffd2e3;
+
+  font-size: 22px;
+
+  cursor: pointer;
+}
+
+.player-controls .play-btn {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 58px;
+  height: 58px;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f77eae,
+      #c74778
+    );
+
+  color: #fff;
+
+  box-shadow:
+    0 10px 30px rgba(236, 79, 135, 0.3);
+}
+
+.playlist-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin-bottom: 28px;
+}
+
+.song {
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  width: 100%;
+
+  padding: 14px 15px;
+
+  border: 1px solid rgba(255, 160, 195, 0.08);
+
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.025);
+
+  color: #dcb5c8;
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.song span {
+  color: #fff;
+
+  font-size: 13px;
+}
+
+.song.active-song {
+  border-color: rgba(255, 130, 175, 0.25);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 110, 170, 0.13),
+      rgba(255, 255, 255, 0.025)
+    );
+}
+
+
+/* =========================================================
+   FINAL
+   ========================================================= */
+
+.final-content {
+  text-align: center;
+}
+
+.heart {
+  margin-bottom: 20px;
+
+  color: #ff8db8;
+
+  font-size: 65px;
+
+  text-shadow:
+    0 0 25px rgba(255, 92, 158, 0.5);
+
+  animation: heartBeat 1.4s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+.final-content h2 {
+  margin-bottom: 22px;
+
+  font-size: 48px;
+
+  line-height: 0.95;
+}
+
+.final-content > p {
+  max-width: 330px;
+
+  margin: 0 auto 18px;
+
+  color: rgba(255, 220, 235, 0.72);
+
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: 19px;
+
+  line-height: 1.5;
+}
+
+.final-small {
+  font-size: 14px !important;
+
+  color: rgba(255, 180, 210, 0.55) !important;
+}
+
+
+/* =========================================================
+   GHOST BUTTON
+   ========================================================= */
+
+.ghost-btn {
+  margin-top: 15px;
+
+  padding: 13px 22px;
+
+  border: 1px solid rgba(255, 155, 195, 0.3);
+
+  border-radius: 30px;
+
+  background: transparent;
+
+  color: #f4b1cc;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.ghost-btn:hover {
+  background: rgba(255, 120, 175, 0.1);
+
+  box-shadow:
+    0 0 25px rgba(255, 100, 165, 0.12);
+}
+
+
+/* =========================================================
+   MUSIC NOTE
+   ========================================================= */
+
+.music-note {
+  position: fixed;
+
+  right: 20px;
+  bottom: 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 45px;
+  height: 45px;
+
+  border: 1px solid rgba(255, 155, 195, 0.2);
+
+  border-radius: 50%;
+
+  background: rgba(40, 10, 30, 0.75);
+
+  color: #ff9fc4;
+
+  font-size: 20px;
+
+  box-shadow:
+    0 0 20px rgba(255, 90, 155, 0.12);
+
+  z-index: 50;
+}
+
+
+/* =========================================================
+   DESKTOP
    ========================================================= */
 
 @media (min-width: 600px) {
+
+  .phone-shell {
+    min-height: 100vh;
+
+    border-left:
+      1px solid rgba(255, 150, 195, 0.05);
+
+    border-right:
+      1px solid rgba(255, 150, 195, 0.05);
+  }
 
   .gallery {
     display: grid;
@@ -123,9 +1120,31 @@
 }
 
 
-/* HP kecil */
+/* =========================================================
+   HP KECIL
+   ========================================================= */
 
 @media (max-width: 380px) {
+
+  .screen {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .lock-content {
+    padding:
+      28px 16px;
+  }
+
+  .keypad {
+    gap: 9px;
+  }
+
+  .keypad button {
+    height: 58px;
+
+    border-radius: 17px;
+  }
 
   .photo-card {
     padding: 8px 8px 15px;
