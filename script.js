@@ -1,110 +1,757 @@
-const screens = [...document.querySelectorAll(".screen")];
-const petals = document.getElementById("petals");
+document.addEventListener("DOMContentLoaded", function () {
 
-function showScreen(id) {
-  screens.forEach(s => s.classList.toggle("active", s.id === id));
-  window.scrollTo({top: 0, behavior: "smooth"});
-  if (id === "heroScreen") makePetals(18);
-  if (id === "finalScreen") makePetals(35);
-}
+    /* =====================================================
+       BASIC ELEMENTS
+    ===================================================== */
 
-document.querySelectorAll(".next").forEach(btn => {
-  btn.addEventListener("click", () => showScreen(btn.dataset.next));
-});
+    const screens = document.querySelectorAll(".screen");
 
-// Secret code demo: 1810. Change it here to your preferred date/code.
-let code = "";
-const secretCode = "1810";
-const dots = [...document.querySelectorAll("#codeDots span")];
-const error = document.getElementById("codeError");
+    const audio = document.getElementById("audio");
 
-function updateDots() {
-  dots.forEach((dot, i) => dot.classList.toggle("filled", i < code.length));
-}
-document.querySelectorAll(".keypad button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const key = btn.dataset.key;
-    const action = btn.dataset.action;
-    if (key !== undefined && code.length < 4) code += key;
-    if (action === "clear") code = "";
-    if (action === "back") code = code.slice(0, -1);
-    updateDots();
-    error.textContent = "";
-    if (code.length === 4) {
-      if (code === secretCode) {
-        setTimeout(() => {
-          code = "";
-          updateDots();
-          showScreen("heroScreen");
-        }, 220);
-      } else {
-        error.textContent = "Kode belum tepat. Coba lagi ✦";
-        setTimeout(() => {
-          code = "";
-          updateDots();
-        }, 650);
-      }
+    const playBtn = document.getElementById("playBtn");
+
+    const prevBtn = document.getElementById("prevBtn");
+
+    const nextBtn = document.getElementById("nextBtn");
+
+    const progressBar = document.getElementById("progressBar");
+
+    const vinyl = document.getElementById("vinyl");
+
+    const songTitle = document.getElementById("songTitle");
+
+    const songArtist = document.getElementById("songArtist");
+
+    const musicNote = document.getElementById("musicNote");
+
+
+
+    /* =====================================================
+       SCREEN NAVIGATION
+    ===================================================== */
+
+    function showScreen(screenId) {
+
+        screens.forEach(function (screen) {
+
+            screen.classList.remove("active");
+
+        });
+
+
+        const target = document.getElementById(screenId);
+
+        if (target) {
+
+            target.classList.add("active");
+
+            target.scrollTop = 0;
+
+        }
+
     }
-  });
+
+
+
+    document.querySelectorAll(".next").forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            const nextScreen = button.dataset.next;
+
+            if (nextScreen) {
+
+                showScreen(nextScreen);
+
+            }
+
+        });
+
+    });
+
+
+
+    /* =====================================================
+       LOCK / PIN
+       
+       PIN = 1810
+    ===================================================== */
+
+    const correctCode = "1810";
+
+    let enteredCode = "";
+
+    const codeDots = document.querySelectorAll(
+        "#codeDots span"
+    );
+
+    const codeError = document.getElementById(
+        "codeError"
+    );
+
+
+    function updateDots() {
+
+        codeDots.forEach(function (dot, index) {
+
+            if (index < enteredCode.length) {
+
+                dot.classList.add("filled");
+
+            } else {
+
+                dot.classList.remove("filled");
+
+            }
+
+        });
+
+    }
+
+
+
+    function checkCode() {
+
+        if (enteredCode.length !== 4) {
+
+            return;
+
+        }
+
+
+        if (enteredCode === correctCode) {
+
+            codeError.textContent = "";
+
+            showScreen("heroScreen");
+
+            enteredCode = "";
+
+            updateDots();
+
+        } else {
+
+            codeError.textContent =
+                "Kode salah, coba lagi ✦";
+
+            enteredCode = "";
+
+            updateDots();
+
+        }
+
+    }
+
+
+
+    document.querySelectorAll("[data-key]").forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            if (enteredCode.length >= 4) {
+
+                return;
+
+            }
+
+
+            enteredCode += button.dataset.key;
+
+            updateDots();
+
+            checkCode();
+
+        });
+
+    });
+
+
+
+    document.querySelectorAll("[data-action]").forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            const action = button.dataset.action;
+
+
+            if (action === "clear") {
+
+                enteredCode = "";
+
+                codeError.textContent = "";
+
+                updateDots();
+
+            }
+
+
+            if (action === "back") {
+
+                enteredCode =
+                    enteredCode.slice(0, -1);
+
+                codeError.textContent = "";
+
+                updateDots();
+
+            }
+
+        });
+
+    });
+
+
+
+    /* =====================================================
+       MUSIC
+    ===================================================== */
+
+    let isPlaying = false;
+
+
+    function playMusic() {
+
+        if (!audio) {
+
+            return;
+
+        }
+
+
+        const playPromise = audio.play();
+
+
+        if (playPromise !== undefined) {
+
+            playPromise
+
+                .then(function () {
+
+                    isPlaying = true;
+
+                    updateMusicUI();
+
+                })
+
+                .catch(function (error) {
+
+                    console.log(
+                        "Audio tidak dapat diputar:",
+                        error
+                    );
+
+                });
+
+        }
+
+    }
+
+
+
+    function pauseMusic() {
+
+        if (!audio) {
+
+            return;
+
+        }
+
+
+        audio.pause();
+
+        isPlaying = false;
+
+        updateMusicUI();
+
+    }
+
+
+
+    function updateMusicUI() {
+
+        if (!playBtn) {
+
+            return;
+
+        }
+
+
+        if (isPlaying) {
+
+            playBtn.textContent = "❚❚";
+
+            playBtn.setAttribute(
+                "aria-label",
+                "Pause"
+            );
+
+
+            if (vinyl) {
+
+                vinyl.classList.add(
+                    "vinyl-playing"
+                );
+
+            }
+
+
+            if (musicNote) {
+
+                musicNote.classList.add(
+                    "music-active"
+                );
+
+            }
+
+        } else {
+
+            playBtn.textContent = "▶";
+
+            playBtn.setAttribute(
+                "aria-label",
+                "Play"
+            );
+
+
+            if (vinyl) {
+
+                vinyl.classList.remove(
+                    "vinyl-playing"
+                );
+
+            }
+
+
+            if (musicNote) {
+
+                musicNote.classList.remove(
+                    "music-active"
+                );
+
+            }
+
+        }
+
+    }
+
+
+
+    if (playBtn) {
+
+        playBtn.addEventListener(
+            "click",
+            function () {
+
+                if (audio.paused) {
+
+                    playMusic();
+
+                } else {
+
+                    pauseMusic();
+
+                }
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       AUDIO PROGRESS
+    ===================================================== */
+
+    if (audio) {
+
+        audio.addEventListener(
+            "timeupdate",
+            function () {
+
+                if (!audio.duration) {
+
+                    return;
+
+                }
+
+
+                const percentage =
+                    (audio.currentTime /
+                        audio.duration) * 100;
+
+
+                if (progressBar) {
+
+                    progressBar.style.width =
+                        percentage + "%";
+
+                }
+
+            }
+        );
+
+
+
+        audio.addEventListener(
+            "loadedmetadata",
+            function () {
+
+                console.log(
+                    "Audio berhasil dimuat."
+                );
+
+            }
+        );
+
+
+
+        audio.addEventListener(
+            "play",
+            function () {
+
+                isPlaying = true;
+
+                updateMusicUI();
+
+            }
+        );
+
+
+
+        audio.addEventListener(
+            "pause",
+            function () {
+
+                isPlaying = false;
+
+                updateMusicUI();
+
+            }
+        );
+
+
+
+        audio.addEventListener(
+            "ended",
+            function () {
+
+                isPlaying = false;
+
+                if (progressBar) {
+
+                    progressBar.style.width =
+                        "0%";
+
+                }
+
+                updateMusicUI();
+
+            }
+        );
+
+
+
+        audio.addEventListener(
+            "error",
+            function () {
+
+                console.log(
+                    "Gagal memuat song.mp3"
+                );
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       PLAYLIST BUTTONS
+       
+       Saat ini semua tombol menggunakan song.mp3.
+       Kita belum menggunakan 3 file lagu berbeda.
+    ===================================================== */
+
+    const songButtons =
+        document.querySelectorAll(".song");
+
+
+    songButtons.forEach(function (songButton) {
+
+        songButton.addEventListener(
+            "click",
+            function () {
+
+                songButtons.forEach(
+                    function (button) {
+
+                        button.classList.remove(
+                            "active-song"
+                        );
+
+                    }
+                );
+
+
+                songButton.classList.add(
+                    "active-song"
+                );
+
+
+                const title =
+                    songButton.dataset.title;
+
+
+                const artist =
+                    songButton.dataset.artist;
+
+
+                if (songTitle) {
+
+                    songTitle.textContent =
+                        title;
+
+                }
+
+
+                if (songArtist) {
+
+                    songArtist.textContent =
+                        artist;
+
+                }
+
+
+                /*
+                 * Karena kita baru mempunyai
+                 * satu file song.mp3, lagu yang
+                 * diputar tetap song.mp3.
+                 */
+
+                audio.currentTime = 0;
+
+                playMusic();
+
+            }
+        );
+
+    });
+
+
+
+    /* =====================================================
+       PREVIOUS / NEXT
+    ===================================================== */
+
+    let currentSong = 0;
+
+
+    function selectSong(index) {
+
+        if (!songButtons.length) {
+
+            return;
+
+        }
+
+
+        if (index < 0) {
+
+            index = songButtons.length - 1;
+
+        }
+
+
+        if (index >= songButtons.length) {
+
+            index = 0;
+
+        }
+
+
+        currentSong = index;
+
+
+        const selected =
+            songButtons[currentSong];
+
+
+        songButtons.forEach(
+            function (button) {
+
+                button.classList.remove(
+                    "active-song"
+                );
+
+            }
+        );
+
+
+        selected.classList.add(
+            "active-song"
+        );
+
+
+        if (songTitle) {
+
+            songTitle.textContent =
+                selected.dataset.title;
+
+        }
+
+
+        if (songArtist) {
+
+            songArtist.textContent =
+                selected.dataset.artist;
+
+        }
+
+
+        audio.currentTime = 0;
+
+        playMusic();
+
+    }
+
+
+
+    if (prevBtn) {
+
+        prevBtn.addEventListener(
+            "click",
+            function () {
+
+                selectSong(
+                    currentSong - 1
+                );
+
+            }
+        );
+
+    }
+
+
+
+    if (nextBtn) {
+
+        nextBtn.addEventListener(
+            "click",
+            function () {
+
+                selectSong(
+                    currentSong + 1
+                );
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       RESTART
+    ===================================================== */
+
+    const restartBtn =
+        document.getElementById(
+            "restartBtn"
+        );
+
+
+    if (restartBtn) {
+
+        restartBtn.addEventListener(
+            "click",
+            function () {
+
+                pauseMusic();
+
+
+                if (audio) {
+
+                    audio.currentTime = 0;
+
+                }
+
+
+                if (progressBar) {
+
+                    progressBar.style.width =
+                        "0%";
+
+                }
+
+
+                showScreen(
+                    "lockScreen"
+                );
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       PETALS
+    ===================================================== */
+
+    const petals =
+        document.getElementById("petals");
+
+
+    if (petals) {
+
+        for (
+            let i = 0;
+            i < 18;
+            i++
+        ) {
+
+            const petal =
+                document.createElement(
+                    "span"
+                );
+
+
+            petal.classList.add(
+                "petal"
+            );
+
+
+            petal.style.left =
+                Math.random() * 100 + "%";
+
+
+            petal.style.animationDelay =
+                Math.random() * 8 + "s";
+
+
+            petal.style.animationDuration =
+                6 + Math.random() * 6 + "s";
+
+
+            petals.appendChild(
+                petal
+            );
+
+        }
+
+    }
+
+
+
+    /* =====================================================
+       INITIAL STATE
+    ===================================================== */
+
+    updateDots();
+
+    updateMusicUI();
+
 });
-
-function makePetals(count = 20) {
-  for (let i = 0; i < count; i++) {
-    const p = document.createElement("i");
-    p.className = "petal";
-    p.style.left = Math.random() * 100 + "%";
-    p.style.setProperty("--drift", (Math.random() * 180 - 90) + "px");
-    p.style.animationDuration = (4 + Math.random() * 5) + "s";
-    p.style.animationDelay = Math.random() * 2 + "s";
-    petals.appendChild(p);
-    setTimeout(() => p.remove(), 11000);
-  }
-}
-
-const songs = [...document.querySelectorAll(".song")];
-const songTitle = document.getElementById("songTitle");
-const songArtist = document.getElementById("songArtist");
-const playBtn = document.getElementById("playBtn");
-const vinyl = document.getElementById("vinyl");
-const audio = document.getElementById("audio");
-const progressBar = document.getElementById("progressBar");
-
-songs.forEach(song => {
-  song.addEventListener("click", () => {
-    songs.forEach(s => s.classList.remove("active-song"));
-    song.classList.add("active-song");
-    songTitle.textContent = song.dataset.title;
-    songArtist.textContent = song.dataset.artist;
-  });
-});
-
-// Optional music file. Add assets/music/song.mp3 and uncomment the next line if desired.
-// audio.src = "assets/music/song.mp3";
-
-playBtn.addEventListener("click", async () => {
-  if (!audio.src) {
-    vinyl.classList.toggle("playing");
-    playBtn.textContent = vinyl.classList.contains("playing") ? "Ⅱ" : "▶";
-    return;
-  }
-  if (audio.paused) {
-    await audio.play();
-    vinyl.classList.add("playing");
-    playBtn.textContent = "Ⅱ";
-  } else {
-    audio.pause();
-    vinyl.classList.remove("playing");
-    playBtn.textContent = "▶";
-  }
-});
-
-audio.addEventListener("timeupdate", () => {
-  if (!audio.duration) return;
-  progressBar.style.width = ((audio.currentTime / audio.duration) * 100) + "%";
-});
-
-document.getElementById("restartBtn").addEventListener("click", () => {
-  showScreen("lockScreen");
-});
-
-makePetals(12);
