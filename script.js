@@ -12,9 +12,9 @@ document.querySelectorAll(".next").forEach(btn => {
   btn.addEventListener("click", () => showScreen(btn.dataset.next));
 });
 
-// Secret code demo: 2709. Change it here to your preferred date/code.
+// Secret code demo: 1810. Change it here to your preferred date/code.
 let code = "";
-const secretCode = "2709";
+const secretCode = "1810";
 const dots = [...document.querySelectorAll("#codeDots span")];
 const error = document.getElementById("codeError");
 
