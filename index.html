@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#100718">
+  <title>For You — A Little Birthday Surprise</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="phone-shell">
+    <div class="ambient"></div>
+    <div class="petals" id="petals"></div>
+
+    <!-- 01: LOCK -->
+    <section class="screen active" id="lockScreen">
+      <div class="lock-content">
+        <div class="eyebrow">A LITTLE SURPRISE FOR</div>
+        <h1 class="script">Someone Special</h1>
+        <p class="muted">Enter the secret code to open your birthday surprise.</p>
+
+        <div class="code-dots" id="codeDots">
+          <span></span><span></span><span></span><span></span>
+        </div>
+
+        <div class="keypad">
+          <button data-key="1">1</button>
+          <button data-key="2">2</button>
+          <button data-key="3">3</button>
+          <button data-key="4">4</button>
+          <button data-key="5">5</button>
+          <button data-key="6">6</button>
+          <button data-key="7">7</button>
+          <button data-key="8">8</button>
+          <button data-key="9">9</button>
+          <button class="key-special" data-action="clear">×</button>
+          <button data-key="0">0</button>
+          <button class="key-special" data-action="back">⌫</button>
+        </div>
+
+        <p class="hint">Hint: your special date ✦</p>
+        <p class="error" id="codeError"></p>
+      </div>
+    </section>
+
+    <!-- 02: HERO -->
+    <section class="screen" id="heroScreen">
+      <div class="hero-content">
+        <div class="cake">🎂</div>
+        <div class="eyebrow">TODAY IS YOUR DAY</div>
+        <h2>Happy<br><span>Birthday</span></h2>
+        <p class="name">KIMMY</p>
+        <p class="quote">“May this new chapter bring you more reasons to smile, love and dream.”</p>
+        <button class="primary-btn next" data-next="letterScreen">Open your letter <span>→</span></button>
+      </div>
+    </section>
+
+    <!-- 03: LETTER -->
+    <section class="screen scroll-screen" id="letterScreen">
+      <div class="section-top">
+        <span class="section-number">01</span>
+        <span>LETTER FOR YOU</span>
+      </div>
+      <div class="paper">
+        <div class="paper-flower">✿</div>
+        <p class="small-caps">DEAR KIMMY,</p>
+        <h2 class="script dark">A letter from my heart</h2>
+        <p>
+          Hari ini bukan sekadar tanggal biasa. Hari ini adalah pengingat
+          bahwa seseorang yang begitu berarti telah hadir dan membuat dunia
+          terasa sedikit lebih indah.
+        </p>
+        <p>
+          Semoga di usia yang baru, kamu selalu dikelilingi hal-hal baik,
+          orang-orang yang tulus, dan banyak momen kecil yang membuatmu
+          bahagia.
+        </p>
+        <p>
+          Terima kasih sudah menjadi dirimu sendiri. Jangan berhenti bermimpi,
+          jangan takut memulai sesuatu yang baru, dan tetaplah menjadi versi
+          terbaik dari dirimu.
+        </p>
+        <p class="signature script dark">With love,<br>Someone who cares ✦</p>
+      </div>
+      <button class="circle-next next" data-next="memoryScreen">↓</button>
+    </section>
+
+    <!-- 04: MEMORIES -->
+    <section class="screen scroll-screen" id="memoryScreen">
+      <div class="section-top">
+        <span class="section-number">02</span>
+        <span>PHOTO MEMORIES</span>
+      </div>
+      <div class="memory-intro">
+        <h2>Little moments,<br><span>big memories.</span></h2>
+        <p>Ganti foto di folder <b>assets/images</b> dengan foto kenanganmu.</p>
+      </div>
+
+      <div class="gallery">
+        <figure class="photo-card tilt-left">
+          <div class="photo-placeholder">YOUR<br>PHOTO 01</div>
+          <figcaption>One of my favorite moments.</figcaption>
+        </figure>
+        <figure class="photo-card tilt-right">
+          <div class="photo-placeholder">YOUR<br>PHOTO 02</div>
+          <figcaption>A memory worth keeping.</figcaption>
+        </figure>
+        <figure class="photo-card tilt-left">
+          <div class="photo-placeholder">YOUR<br>PHOTO 03</div>
+          <figcaption>And many more to come.</figcaption>
+        </figure>
+      </div>
+
+      <button class="primary-btn next" data-next="playlistScreen">Continue <span>→</span></button>
+    </section>
+
+    <!-- 05: PLAYLIST -->
+    <section class="screen scroll-screen" id="playlistScreen">
+      <div class="section-top">
+        <span class="section-number">03</span>
+        <span>SPECIAL PLAYLIST</span>
+      </div>
+
+      <div class="vinyl-wrap">
+        <div class="vinyl" id="vinyl"><div class="vinyl-hole"></div></div>
+      </div>
+
+      <div class="now-playing">
+        <p class="small-caps">NOW PLAYING</p>
+        <h2 id="songTitle">Your Special Song</h2>
+        <p id="songArtist">Add your own song in assets/music/song.mp3</p>
+      </div>
+
+      <div class="progress"><span id="progressBar"></span></div>
+
+      <div class="player-controls">
+        <button id="prevBtn">↶</button>
+        <button class="play-btn" id="playBtn">▶</button>
+        <button id="nextBtn">↷</button>
+      </div>
+
+      <div class="playlist-list">
+        <button class="song active-song" data-title="Your Special Song" data-artist="A song just for you">01 <span>Your Special Song</span></button>
+        <button class="song" data-title="A Beautiful Memory" data-artist="For this beautiful chapter">02 <span>A Beautiful Memory</span></button>
+        <button class="song" data-title="One More Wish" data-artist="Make a wish tonight">03 <span>One More Wish</span></button>
+      </div>
+
+      <button class="primary-btn next" data-next="finalScreen">One last thing <span>→</span></button>
+    </section>
+
+    <!-- 06: FINAL -->
+    <section class="screen" id="finalScreen">
+      <div class="final-content">
+        <div class="heart">♥</div>
+        <div class="eyebrow">ONE LAST MESSAGE</div>
+        <h2 class="script">Happy Birthday,<br>Kimmy.</h2>
+        <p>
+          May your days be softer, your smiles wider, and your dreams closer
+          than ever before.
+        </p>
+        <p class="final-small">Keep this little page as a reminder that you are loved. ✦</p>
+        <button class="ghost-btn" id="restartBtn">Replay the surprise</button>
+      </div>
+    </section>
+
+    <div class="music-note" id="musicNote">♪</div>
+  </div>
+
+  <audio id="audio" preload="metadata"></audio>
+  <script src="js/script.js"></script>
+</body>
+</html>
