@@ -4,12 +4,12 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const audio = document.getElementById("audio");
-    const playBtn = document.getElementById("playBtn");
-    const vinyl = document.getElementById("vinyl");
-    const progressBar = document.getElementById("progressBar");
-    const musicNote = document.getElementById("musicNote");
-
+const audio = document.getElementById("audio");
+const playBtn = document.getElementById("playBtn");
+const vinyl = document.getElementById("vinyl");
+const progressBar = document.getElementById("progressBar");
+const musicNote = document.getElementById("musicNote");
+   
     let isPlaying = false;
 
     /* =====================================================
@@ -17,8 +17,9 @@ document.addEventListener("DOMContentLoaded", function () {
        ===================================================== */
 
     // Pastikan file lagu diarahkan ke song.mp3
-    audio.src = "song.mp3";
-    audio.load();
+audio.src = "song.mp3.mp3";
+audio.preload = "auto";
+
 
 
     /* =====================================================
@@ -28,51 +29,30 @@ document.addEventListener("DOMContentLoaded", function () {
     if (playBtn) {
 
         playBtn.addEventListener("click", function () {
+    if (audio.paused) {
+        audio.play()
+            .then(() => {
+                playBtn.textContent = "❚❚";
+                vinyl.classList.add("playing");
+                musicNote.classList.add("show");
+            })
+            .catch((error) => {
+                console.error("Gagal memutar:", error);
 
-            if (audio.paused) {
+                alert(
+                    "Lagu belum bisa diputar. Pastikan file song.mp3.mp3 tersedia di repository."
+                );
+            });
+       
+             } else {
+        audio.pause();
 
-                audio.play()
-                    .then(function () {
-
-                        isPlaying = true;
-
-                        playBtn.innerHTML = "❚❚";
-
-                        if (vinyl) {
-                            vinyl.classList.add("playing");
-                        }
-
-                        if (musicNote) {
-                            musicNote.classList.add("show");
-                        }
-
-                    })
-                    .catch(function (error) {
-
-                        console.log("Audio gagal diputar:", error);
-
-                        alert(
-                            "Lagu belum bisa diputar. Pastikan file song.mp3 sudah berada satu folder dengan index.html."
-                        );
-
-                    });
-
-            } else {
-
-                audio.pause();
-
-                isPlaying = false;
-
-                playBtn.innerHTML = "▶";
-
-                if (vinyl) {
-                    vinyl.classList.remove("playing");
-                }
-
-            }
-
-        });
-
+        playBtn.textContent = "▶";
+        vinyl.classList.remove("playing");
+        musicNote.classList.remove("show");
+    }
+    });
+       
     }
 
 
@@ -80,38 +60,26 @@ document.addEventListener("DOMContentLoaded", function () {
        PROGRESS BAR
        ===================================================== */
 
-    audio.addEventListener("timeupdate", function () {
-
-        if (!audio.duration) return;
-
+audio.addEventListener("timeupdate", function () {
+    if (audio.duration) {
         const progress =
             (audio.currentTime / audio.duration) * 100;
-
-        if (progressBar) {
-            progressBar.style.width = progress + "%";
-        }
-
-    });
-
+        progressBar.style.width = progress + "%";}
+      });
 
     /* =====================================================
        LAGU SELESAI
        ===================================================== */
 
-    audio.addEventListener("ended", function () {
+   audio.addEventListener("ended", function () {
+    playBtn.textContent = "▶";
+    vinyl.classList.remove("playing");
+    musicNote.classList.remove("show");
+});
 
-        isPlaying = false;
-
-        if (playBtn) {
-            playBtn.innerHTML = "▶";
-        }
-
-        if (vinyl) {
-            vinyl.classList.remove("playing");
-        }
-
-    });
-
+audio.addEventListener("error", function () {
+    console.error("File musik tidak dapat dimuat.");
+});
 
     /* =====================================================
        PILIH LAGU
